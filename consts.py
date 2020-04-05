@@ -3,7 +3,7 @@ import pygame
 
 
 # sizes
-WIDTH, HEIGHT = 1050, 770
+WIDTH, HEIGHT = 1050, 750
 SIZE = 50
 XY = (SIZE, SIZE)
 
