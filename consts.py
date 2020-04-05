@@ -9,7 +9,8 @@ XY = (SIZE, SIZE)
 
 # gameplay
 BG_COLOR = (242, 188, 82)
-DELAY = 5
+DELAY = 15
+HERO_STEP = 5
 
 
 # sprites
@@ -23,21 +24,21 @@ class MainCharacter(pygame.sprite.Sprite):
 
     def control(self, keys):
         if keys[pygame.K_RIGHT]:
-            self.rect.x += 2
+            self.rect.x += HERO_STEP
             if is_stop_collision(self):
-                self.rect.x -= 2
+                self.rect.x -= HERO_STEP
         if keys[pygame.K_LEFT]:
-            self.rect.x -= 2
+            self.rect.x -= HERO_STEP
             if is_stop_collision(self):
-                self.rect.x += 2
+                self.rect.x += HERO_STEP
         if keys[pygame.K_UP]:
-            self.rect.y -= 2
+            self.rect.y -= HERO_STEP
             if is_stop_collision(self):
-                self.rect.y += 2
+                self.rect.y += HERO_STEP
         if keys[pygame.K_DOWN]:
-            self.rect.y += 2
+            self.rect.y += HERO_STEP
             if is_stop_collision(self):
-                self.rect.y -= 2
+                self.rect.y -= HERO_STEP
 
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, enemy_group):
