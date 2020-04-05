@@ -33,12 +33,8 @@ class Level:
                 screen.blit(enemy.image, (enemy.rect.x, enemy.rect.y))
 
     def draw_walls(self):
-        wall_group.empty()
         for wall in self.walls:
-            wall.is_destroyed()
-            if not wall.destroyed:
-                wall_group.add(wall)
-                screen.blit(wall.image, (wall.rect.x, wall.rect.y))
+            screen.blit(wall.image, (wall.rect.x, wall.rect.y))
 
     def enemy_movement(self):
         for enemy in self.enemies:
