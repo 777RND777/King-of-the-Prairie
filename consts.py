@@ -74,4 +74,4 @@ enemy_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 
-mc = MainCharacter(map_scaling(15), map_scaling(11))
+mc = MainCharacter(map_scaling(17), map_scaling(15))
