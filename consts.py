@@ -23,19 +23,19 @@ class MainCharacter(pygame.sprite.Sprite):
         self.on_bomb = False
 
     def control(self, keys):
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_d]:
             self.rect.x += HERO_STEP
             if is_stop_collision(self):
                 self.rect.x -= HERO_STEP
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_a]:
             self.rect.x -= HERO_STEP
             if is_stop_collision(self):
                 self.rect.x += HERO_STEP
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_w]:
             self.rect.y -= HERO_STEP
             if is_stop_collision(self):
                 self.rect.y += HERO_STEP
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_s]:
             self.rect.y += HERO_STEP
             if is_stop_collision(self):
                 self.rect.y -= HERO_STEP
