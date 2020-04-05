@@ -22,6 +22,7 @@ while not mc.dead:
     mc.is_dead()
 
     screen.fill(BG_COLOR)
+    level.draw_level()
     screen.blit(mc.image, mc.rect)
 
     pygame.display.update()
