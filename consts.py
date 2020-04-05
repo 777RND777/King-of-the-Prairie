@@ -47,7 +47,7 @@ class MainCharacter(pygame.sprite.Sprite):
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
+        pygame.sprite.Sprite.__init__(self, wall_group)
         self.image = pygame.transform.scale(pygame.image.load("img/wall.png").convert_alpha(), XY)
         self.rect = self.image.get_rect(center=(x, y))
 
