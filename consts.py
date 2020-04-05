@@ -8,7 +8,7 @@ SIZE = 50
 XY = (SIZE, SIZE)
 
 # gameplay
-BG_COLOR = (0, 149, 0)
+BG_COLOR = (242, 188, 82)
 DELAY = 5
 
 
