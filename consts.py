@@ -44,6 +44,12 @@ class MainCharacter(pygame.sprite.Sprite):
             if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y -= HERO_STEP
 
+    def is_ready(self, keys):
+        if self.timer == 0:
+            self.fire(keys)
+        else:
+            self.timer -= 1
+
     def fire(self, keys):
         bullet = Bullet("")
         if keys[pygame.K_RIGHT]:
@@ -61,11 +67,6 @@ class MainCharacter(pygame.sprite.Sprite):
         if self.timer == 10:
             bullets.append(bullet)
             bullet_group.add(bullet)
-
-    def timer_action(self):
-        self.timer -= 1
-        if self.timer == 0:
-            self.fired = False
 
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, enemy_group):
