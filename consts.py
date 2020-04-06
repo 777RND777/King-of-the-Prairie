@@ -23,6 +23,8 @@ class MainCharacter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
         self.dead = False
         self.on_bomb = False
+        self.fired = False
+        self.timer = 0
 
     def control(self, keys):
         if keys[pygame.K_d]:
@@ -41,6 +43,19 @@ class MainCharacter(pygame.sprite.Sprite):
             self.rect.y += HERO_STEP
             if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y -= HERO_STEP
+
+    def fire(self, keys):
+        if keys[pygame.K_UP]:
+            self.fired = True
+            self.timer = 10
+            bullet = Bullet("up")
+            bullets.append(bullet)
+            bullet_group.add(bullet)
+
+    def timer_action(self):
+        self.timer -= 1
+        if self.timer == 0:
+            self.fired = False
 
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, enemy_group):

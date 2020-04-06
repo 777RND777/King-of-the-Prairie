@@ -19,10 +19,15 @@ while not mc.dead:
     if keys[pygame.K_ESCAPE]:
         mc.dead = True
     mc.control(keys)
+    if mc.fired:
+        mc.timer_action()
+    else:
+        mc.fire(keys)
     mc.is_dead()
 
     screen.fill(BG_COLOR)
     level.draw_level()
+    draw_bullets()
     screen.blit(mc.image, mc.rect)
 
     pygame.display.update()
