@@ -75,15 +75,14 @@ def map_scaling(num):
     return num * SIZE / 2
 
 
-def is_stop_collision(sprite):
-    if pygame.sprite.spritecollideany(sprite, wall_group):
-        return True
-    if pygame.sprite.spritecollideany(sprite, bullet_group):
-        if not sprite.on_bomb:
-            return True
-    else:
-        sprite.on_bomb = False
-    return False
+def draw_bullets():
+    bullet_group.empty()
+    for bullet in bullets:
+        bullet.move()
+        bullet.is_stopped()
+        if not bullet.stopped:
+            bullet_group.add(bullet)
+            screen.blit(bullet.image, (bullet.rect.x, bullet.rect.y))
 
 
 # pygame
@@ -94,3 +93,4 @@ bullet_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 
 mc = MainCharacter(map_scaling(17), map_scaling(15))
+bullets = []
