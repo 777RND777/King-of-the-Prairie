@@ -25,19 +25,19 @@ class MainCharacter(pygame.sprite.Sprite):
     def control(self, keys):
         if keys[pygame.K_d]:
             self.rect.x += HERO_STEP
-            if is_stop_collision(self):
+            if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.x -= HERO_STEP
         if keys[pygame.K_a]:
             self.rect.x -= HERO_STEP
-            if is_stop_collision(self):
+            if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.x += HERO_STEP
         if keys[pygame.K_w]:
             self.rect.y -= HERO_STEP
-            if is_stop_collision(self):
+            if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y += HERO_STEP
         if keys[pygame.K_s]:
             self.rect.y += HERO_STEP
-            if is_stop_collision(self):
+            if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y -= HERO_STEP
 
     def is_dead(self):
