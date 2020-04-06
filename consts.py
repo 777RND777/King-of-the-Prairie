@@ -5,7 +5,9 @@ import pygame
 # sizes
 WIDTH, HEIGHT = 800, 800
 SIZE = 50
+BULLET_SIZE = 5
 XY = (SIZE, SIZE)
+BULLET_XY = (BULLET_SIZE, BULLET_SIZE)
 
 # gameplay
 BG_COLOR = (242, 188, 82)
@@ -43,6 +45,23 @@ class MainCharacter(pygame.sprite.Sprite):
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, enemy_group):
             self.dead = True
+
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, direction):
+        pygame.sprite.Sprite.__init__(self, bullet_group)
+        self.image = pygame.transform.scale(pygame.image.load("img/blow.png").convert_alpha(), BULLET_XY)
+        self.rect = self.image.get_rect(center=(mc.rect.x + SIZE / 2, mc.rect.y + SIZE / 2))
+        self.direction = direction
+        self.stopped = False
+
+    def is_stopped(self):
+        if pygame.sprite.spritecollideany(self, wall_group):
+            self.stopped = True
+
+    def move(self):
+        if self.direction == "up":
+            self.rect.y -= 10
 
 
 class Wall(pygame.sprite.Sprite):
