@@ -13,6 +13,7 @@ BULLET_XY = (BULLET_SIZE, BULLET_SIZE)
 BG_COLOR = (242, 188, 82)
 DELAY = 15
 HERO_STEP = 5
+BULLET_STEP = 10
 
 
 # sprites
@@ -23,7 +24,6 @@ class MainCharacter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
         self.dead = False
         self.on_bomb = False
-        self.fired = False
         self.timer = 0
 
     def control(self, keys):
@@ -45,10 +45,20 @@ class MainCharacter(pygame.sprite.Sprite):
                 self.rect.y -= HERO_STEP
 
     def fire(self, keys):
-        if keys[pygame.K_UP]:
-            self.fired = True
+        bullet = Bullet("")
+        if keys[pygame.K_RIGHT]:
             self.timer = 10
-            bullet = Bullet("up")
+            bullet.direction = "right"
+        if keys[pygame.K_LEFT]:
+            self.timer = 10
+            bullet.direction = "left"
+        if keys[pygame.K_UP]:
+            self.timer = 10
+            bullet.direction = "up"
+        if keys[pygame.K_DOWN]:
+            self.timer = 10
+            bullet.direction = "down"
+        if self.timer == 10:
             bullets.append(bullet)
             bullet_group.add(bullet)
 
@@ -75,8 +85,14 @@ class Bullet(pygame.sprite.Sprite):
             self.stopped = True
 
     def move(self):
+        if self.direction == "right":
+            self.rect.x += BULLET_STEP
+        if self.direction == "left":
+            self.rect.x -= BULLET_STEP
         if self.direction == "up":
-            self.rect.y -= 10
+            self.rect.y -= BULLET_STEP
+        if self.direction == "down":
+            self.rect.y += BULLET_STEP
 
 
 class Wall(pygame.sprite.Sprite):
