@@ -2,11 +2,12 @@ from consts import *
 from random import randint
 import levels.level_1 as l1
 import levels.level_2 as l2
+import levels.level_3 as l3
 
 
 class Level:
     def __init__(self):
-        self.number = 0
+        self.number = 2
         self.created = False
         self.walls = []
         self.enemies = []
@@ -20,12 +21,24 @@ class Level:
         self.created = True
         if self.number == 1:
             self.walls = l1.create_walls()
+            self.update_walls()
         if self.number == 2:
+            wall_group.empty()
             self.walls = l1.create_walls()
             self.walls += l2.walls
+            self.update_walls()
+        if self.number == 3:
+            self.walls = l1.create_walls()
+            self.walls += l3.walls
+            self.update_walls()
 
     def draw_level(self):
         self.draw_walls()
+
+    def update_walls(self):
+        wall_group.empty()
+        for wall in self.walls:
+            wall_group.add(wall)
 
     def draw_walls(self):
         for wall in self.walls:
