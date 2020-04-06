@@ -1,6 +1,7 @@
 from consts import *
 from random import randint
 import levels.level_1 as l1
+import levels.level_2 as l2
 
 
 class Level:
@@ -19,6 +20,9 @@ class Level:
         self.created = True
         if self.number == 1:
             self.walls = l1.create_walls()
+        if self.number == 2:
+            self.walls = l1.create_walls()
+            self.walls += l2.walls
 
     def draw_level(self):
         self.draw_enemies()
