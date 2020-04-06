@@ -17,7 +17,7 @@ while not mc.dead:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_ESCAPE]:
-        break
+        mc.dead = True
     mc.control(keys)
     mc.is_dead()
 
