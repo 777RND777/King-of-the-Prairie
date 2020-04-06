@@ -25,16 +25,7 @@ class Level:
             self.walls += l2.walls
 
     def draw_level(self):
-        self.draw_enemies()
         self.draw_walls()
-
-    def draw_enemies(self):
-        enemy_group.empty()
-        for enemy in self.enemies:
-            enemy.is_dead()
-            if not enemy.dead:
-                enemy_group.add(enemy)
-                screen.blit(enemy.image, (enemy.rect.x, enemy.rect.y))
 
     def draw_walls(self):
         for wall in self.walls:
