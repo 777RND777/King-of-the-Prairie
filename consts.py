@@ -52,16 +52,28 @@ class MainCharacter(pygame.sprite.Sprite):
 
     def fire(self, keys):
         bullet = Bullet("")
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and keys[pygame.K_UP]:
+            self.timer = 10
+            bullet.direction = "right-up"
+        elif keys[pygame.K_RIGHT] and keys[pygame.K_DOWN]:
+            self.timer = 10
+            bullet.direction = "right-down"
+        elif keys[pygame.K_LEFT] and keys[pygame.K_DOWN]:
+            self.timer = 10
+            bullet.direction = "left-down"
+        elif keys[pygame.K_LEFT] and keys[pygame.K_UP]:
+            self.timer = 10
+            bullet.direction = "left-up"
+        elif keys[pygame.K_RIGHT]:
             self.timer = 10
             bullet.direction = "right"
-        if keys[pygame.K_LEFT]:
+        elif keys[pygame.K_LEFT]:
             self.timer = 10
             bullet.direction = "left"
-        if keys[pygame.K_UP]:
+        elif keys[pygame.K_UP]:
             self.timer = 10
             bullet.direction = "up"
-        if keys[pygame.K_DOWN]:
+        elif keys[pygame.K_DOWN]:
             self.timer = 10
             bullet.direction = "down"
         if self.timer == 10:
@@ -86,13 +98,13 @@ class Bullet(pygame.sprite.Sprite):
             self.stopped = True
 
     def move(self):
-        if self.direction == "right":
+        if "right" in self.direction:
             self.rect.x += BULLET_STEP
-        if self.direction == "left":
+        if "left" in self.direction:
             self.rect.x -= BULLET_STEP
-        if self.direction == "up":
+        if "up" in self.direction:
             self.rect.y -= BULLET_STEP
-        if self.direction == "down":
+        if "down" in self.direction:
             self.rect.y += BULLET_STEP
 
 
