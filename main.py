@@ -11,6 +11,7 @@ while not mc.dead:
     if not level.created:
         level.create_level()
     level.is_finished()
+    level.spawn_enemy()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             mc.dead = True

@@ -85,6 +85,23 @@ class MainCharacter(pygame.sprite.Sprite):
             self.dead = True
 
 
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self, place):
+        pygame.sprite.Sprite.__init__(self, enemy_group)
+        self.image = pygame.transform.scale(pygame.image.load("img/enemy.png").convert_alpha(), XY)
+        self.place = place
+        self.rect = self.image.get_rect(center=self.spawn())
+        self.dead = False
+
+    def spawn(self):
+        if self.place == "left":
+            return (map_scaling(1), map_scaling(randint(7, 9) * 2 + 1))
+
+    def is_dead(self):
+        if pygame.sprite.spritecollideany(self, bullet_group):
+            self.dead = True
+
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, direction):
         pygame.sprite.Sprite.__init__(self, bullet_group)
