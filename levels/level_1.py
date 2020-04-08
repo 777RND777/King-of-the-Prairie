@@ -1,6 +1,33 @@
 from consts import *
 
 
+enemies = [
+    Enemy("right"),
+    Enemy("right"),
+    Enemy("right"),
+    Enemy("right"),
+    Enemy("right"),
+
+    Enemy("left"),
+    Enemy("left"),
+    Enemy("left"),
+    Enemy("left"),
+    Enemy("left"),
+
+    Enemy("up"),
+    Enemy("up"),
+    Enemy("up"),
+    Enemy("up"),
+    Enemy("up"),
+
+    Enemy("down"),
+    Enemy("down"),
+    Enemy("down"),
+    Enemy("down"),
+    Enemy("down"),
+]
+
+
 def create_walls():
     level = []
     for i in range(7):
