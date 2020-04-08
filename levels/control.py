@@ -7,28 +7,30 @@ import levels.level_3 as l3
 
 class Level:
     def __init__(self):
-        self.number = 2
+        self.number = 0
         self.created = False
         self.walls = []
         self.enemies = []
+        self.spawned_enemies = []
+        self.spawned = 0
         self.spawn_timer = 50
 
     def create_level(self):
         self.created = True
+        self.number += 1
         self.get_level()
 
     def get_level(self):
-        self.number += 1
-        self.created = True
         if self.number == 1:
             self.walls = l1.create_walls()
             self.update_walls()
-        if self.number == 2:
+            self.enemies = l1.enemies
+        elif self.number == 2:
             wall_group.empty()
             self.walls = l1.create_walls()
             self.walls += l2.walls
             self.update_walls()
-        if self.number == 3:
+        elif self.number == 3:
             self.walls = l1.create_walls()
             self.walls += l3.walls
             self.update_walls()
@@ -39,11 +41,13 @@ class Level:
             wall_group.add(wall)
 
     def spawn_enemy(self):
-        if self.spawn_timer == 0:
-            self.enemies.append(Enemy("left"))
-            self.spawn_timer = 50
-        else:
-            self.spawn_timer -= 1
+        if self.spawned < len(self.enemies):
+            if self.spawn_timer == 0:
+                self.spawned_enemies.append(self.enemies[self.spawned])
+                self.spawned += 1
+                self.spawn_timer = 50
+            else:
+                self.spawn_timer -= 1
 
     def draw_level(self):
         self.draw_walls()
@@ -55,12 +59,12 @@ class Level:
 
     def draw_enemies(self):
         enemy_group.empty()
-        for enemy in self.enemies:
+        for enemy in self.spawned_enemies:
             enemy.is_dead()
             if not enemy.dead:
                 enemy_group.add(enemy)
                 screen.blit(enemy.image, (enemy.rect.x, enemy.rect.y))
 
     def is_finished(self):
-        if len(enemy_group) == 0:
+        if len(self.spawned_enemies) == len(self.enemies) and len(enemy_group) == 0:
             self.created = False

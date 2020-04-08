@@ -18,13 +18,16 @@ BULLET_STEP = 10
 
 # sprites
 class MainCharacter(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self, mc_group)
         self.image = pygame.transform.scale(pygame.image.load("img/mc.png").convert_alpha(), XY)
-        self.rect = self.image.get_rect(center=(x, y))
+        self.go_to_middle()
         self.dead = False
         self.on_bomb = False
         self.timer = 0
+
+    def go_to_middle(self):
+        self.rect = self.image.get_rect(center=(map_scaling(17), map_scaling(15)))
 
     def control(self, keys):
         if keys[pygame.K_d]:
@@ -94,8 +97,14 @@ class Enemy(pygame.sprite.Sprite):
         self.dead = False
 
     def spawn(self):
+        if self.place == "right":
+            return (map_scaling(31), map_scaling(randint(7, 9) * 2 + 1))
         if self.place == "left":
             return (map_scaling(1), map_scaling(randint(7, 9) * 2 + 1))
+        if self.place == "up":
+            return (map_scaling(randint(7, 9) * 2 + 1), map_scaling(1))
+        if self.place == "down":
+            return (map_scaling(randint(7, 9) * 2 + 1), map_scaling(31))
 
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, bullet_group):
@@ -153,5 +162,5 @@ enemy_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 
-mc = MainCharacter(map_scaling(17), map_scaling(15))
+mc = MainCharacter()
 bullets = []

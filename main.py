@@ -10,8 +10,9 @@ level = Level()
 while not mc.dead:
     if not level.created:
         level.create_level()
-    level.is_finished()
+        mc.go_to_middle()
     level.spawn_enemy()
+    level.is_finished()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             mc.dead = True
