@@ -32,22 +32,22 @@ class MainCharacter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(map_scaling(17), map_scaling(15)))
 
     def control(self, keys):
-        if keys[pygame.K_d]:
-            self.rect.x += HERO_STEP
-            if pygame.sprite.spritecollideany(self, wall_group):
-                self.rect.x -= HERO_STEP
-        if keys[pygame.K_a]:
-            self.rect.x -= HERO_STEP
-            if pygame.sprite.spritecollideany(self, wall_group):
-                self.rect.x += HERO_STEP
         if keys[pygame.K_w]:
             self.rect.y -= HERO_STEP
             if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y += HERO_STEP
+        if keys[pygame.K_d]:
+            self.rect.x += HERO_STEP
+            if pygame.sprite.spritecollideany(self, wall_group):
+                self.rect.x -= HERO_STEP
         if keys[pygame.K_s]:
             self.rect.y += HERO_STEP
             if pygame.sprite.spritecollideany(self, wall_group):
                 self.rect.y -= HERO_STEP
+        if keys[pygame.K_a]:
+            self.rect.x -= HERO_STEP
+            if pygame.sprite.spritecollideany(self, wall_group):
+                self.rect.x += HERO_STEP
 
     def is_ready(self, keys):
         if self.timer == 0:
@@ -69,18 +69,18 @@ class MainCharacter(pygame.sprite.Sprite):
         elif keys[pygame.K_LEFT] and keys[pygame.K_UP]:
             self.timer = 10
             bullet.direction = "left-up"
-        elif keys[pygame.K_RIGHT]:
-            self.timer = 10
-            bullet.direction = "right"
-        elif keys[pygame.K_LEFT]:
-            self.timer = 10
-            bullet.direction = "left"
         elif keys[pygame.K_UP]:
             self.timer = 10
             bullet.direction = "up"
+        elif keys[pygame.K_RIGHT]:
+            self.timer = 10
+            bullet.direction = "right"
         elif keys[pygame.K_DOWN]:
             self.timer = 10
             bullet.direction = "down"
+        elif keys[pygame.K_LEFT]:
+            self.timer = 10
+            bullet.direction = "left"
         if self.timer == 10:
             bullets.append(bullet)
             bullet_group.add(bullet)
@@ -91,22 +91,32 @@ class MainCharacter(pygame.sprite.Sprite):
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, place):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self, enemy_group)
         self.image = pygame.transform.scale(pygame.image.load("img/enemy.png").convert_alpha(), XY)
-        self.place = place
+        self.place = randint(1, 4)
         self.rect = self.image.get_rect(center=self.spawn())
         self.dead = False
 
     def spawn(self):
-        if self.place == "right":
-            return map_scaling(31), map_scaling(randint(7, 9) * 2 + 1)
-        if self.place == "left":
-            return map_scaling(1), map_scaling(randint(7, 9) * 2 + 1)
-        if self.place == "up":
+        if self.place == 1:
             return map_scaling(randint(7, 9) * 2 + 1), map_scaling(1)
-        if self.place == "down":
+        if self.place == 2:
+            return map_scaling(31), map_scaling(randint(7, 9) * 2 + 1)
+        if self.place == 3:
             return map_scaling(randint(7, 9) * 2 + 1), map_scaling(31)
+        if self.place == 4:
+            return map_scaling(1), map_scaling(randint(7, 9) * 2 + 1)
+
+    def movement(self):
+        if self.rect.y > mc.rect.y:
+            self.rect.y -= ENEMY_STEP
+        elif self.rect.x < mc.rect.x:
+            self.rect.x += ENEMY_STEP
+        elif self.rect.y < mc.rect.y:
+            self.rect.y += ENEMY_STEP
+        elif self.rect.x > mc.rect.x:
+            self.rect.x -= ENEMY_STEP
 
     def is_dead(self):
         if pygame.sprite.spritecollideany(self, bullet_group):
@@ -126,14 +136,14 @@ class Bullet(pygame.sprite.Sprite):
             self.stopped = True
 
     def move(self):
-        if "right" in self.direction:
-            self.rect.x += BULLET_STEP
-        if "left" in self.direction:
-            self.rect.x -= BULLET_STEP
         if "up" in self.direction:
             self.rect.y -= BULLET_STEP
+        if "right" in self.direction:
+            self.rect.x += BULLET_STEP
         if "down" in self.direction:
             self.rect.y += BULLET_STEP
+        if "left" in self.direction:
+            self.rect.x -= BULLET_STEP
 
 
 class Wall(pygame.sprite.Sprite):

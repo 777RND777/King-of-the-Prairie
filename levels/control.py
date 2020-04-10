@@ -9,7 +9,7 @@ class Level:
         self.number = 0
         self.created = False
         self.walls = []
-        self.enemies = []
+        self.enemies = 0
         self.spawned_enemies = []
         self.spawned = 0
         self.spawn_timer = 50
@@ -23,7 +23,7 @@ class Level:
         if self.number == 1:
             self.walls = l1.create_walls()
             self.update_walls()
-            self.enemies = l1.enemies
+            self.enemies = 5
         elif self.number == 2:
             wall_group.empty()
             self.walls = l1.create_walls()
@@ -40,9 +40,9 @@ class Level:
             wall_group.add(wall)
 
     def spawn_enemy(self):
-        if self.spawned < len(self.enemies):
+        if self.spawned < self.enemies:
             if self.spawn_timer == 0:
-                self.spawned_enemies.append(self.enemies[self.spawned])
+                self.spawned_enemies.append(Enemy())
                 self.spawned += 1
                 self.spawn_timer = 50
             else:
@@ -62,8 +62,9 @@ class Level:
             enemy.is_dead()
             if not enemy.dead:
                 enemy_group.add(enemy)
+                enemy.movement()
                 screen.blit(enemy.image, (enemy.rect.x, enemy.rect.y))
 
     def is_finished(self):
-        if len(self.spawned_enemies) == len(self.enemies) and len(enemy_group) == 0:
+        if len(self.spawned_enemies) == self.enemies and len(enemy_group) == 0:
             self.created = False
