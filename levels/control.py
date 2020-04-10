@@ -29,10 +29,12 @@ class Level:
             self.walls = l1.create_walls()
             self.walls += l2.walls
             self.update_walls()
+            self.spawned = 0
         elif self.number == 3:
             self.walls = l1.create_walls()
             self.walls += l3.walls
             self.update_walls()
+            self.spawned = 0
 
     def update_walls(self):
         wall_group.empty()

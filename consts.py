@@ -160,10 +160,10 @@ def map_scaling(num):
 def draw_bullets():
     bullet_group.empty()
     for bullet in bullets:
-        bullet.move()
         bullet.is_stopped()
         if not bullet.stopped:
             bullet_group.add(bullet)
+            bullet.move()
             screen.blit(bullet.image, (bullet.rect.x, bullet.rect.y))
 
 
