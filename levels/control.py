@@ -1,5 +1,4 @@
 from consts import *
-from random import randint
 import levels.level_1 as l1
 import levels.level_2 as l2
 import levels.level_3 as l3

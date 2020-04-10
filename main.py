@@ -3,7 +3,7 @@ from levels.control import Level
 
 
 pygame.init()
-pygame.display.set_caption("King of Preria")
+pygame.display.set_caption("King of Prairie")
 level = Level()
 
 
