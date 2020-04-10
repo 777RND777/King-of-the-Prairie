@@ -122,7 +122,7 @@ class Bullet(pygame.sprite.Sprite):
         self.stopped = False
 
     def is_stopped(self):
-        if pygame.sprite.spritecollideany(self, wall_group):
+        if pygame.sprite.spritecollideany(self, wall_group) or pygame.sprite.spritecollideany(self, enemy_group):
             self.stopped = True
 
     def move(self):
